@@ -12,7 +12,7 @@ export function AboutClient() {
   return (
     <>
       <section className="about-hero">
-        <Stone label="Makrana marble quarry — wide landscape" dark />
+        <Stone label="Makrana marble quarry — wide landscape" dark src="/assets/hero-marble.jpg" sizes="100vw" priority />
         <div className="wrap">
           <p className="eyebrow" style={{ color: "var(--brass-lite)" }}>{t("about.eyebrow")}</p>
           <h1 className="display" style={{ marginTop: 18 }}>{t("about.title")}</h1>
@@ -21,7 +21,7 @@ export function AboutClient() {
 
       <section className="section marble-bg">
         <div className="wrap story-grid">
-          <Reveal className="story-media"><Stone label="Founder & craftsmen at the workshop" /></Reveal>
+          <Reveal className="story-media"><Stone label="Hand-carved marble craftsmanship" src="/assets/handicraft-hand-carving.jpg" sizes="(max-width: 880px) 100vw, 45vw" /></Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{t("about.eyebrow")}</p>
             <h2 className="display" style={{ fontSize: "clamp(34px,5vw,64px)", margin: "18px 0 30px" }}>{t("about.fromMakrana")}</h2>
@@ -39,7 +39,7 @@ export function AboutClient() {
 
       <section className="section dark">
         <div className="wrap founder">
-          <Reveal className="founder-portrait"><Stone label="Portrait — Mr. Abdul Hafeez Rander" dark /></Reveal>
+          <Reveal className="founder-portrait"><Stone label="Founder — Mr. Abdul Hafeez Rander" dark /></Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{t("about.founderEyebrow")}</p>
             <blockquote style={{ marginTop: 22 }}>“<span>{t("about.founderText")}</span>”</blockquote>
@@ -122,7 +122,7 @@ export function AboutClient() {
             <p className="lead">{t("makrana.subtitle")}</p>
             <Link className="link-arrow" style={{ marginTop: 28, color: "var(--brass-lite)" }} href="/heritage"><span>{t("nav.heritage")}</span> →</Link>
           </Reveal>
-          <Reveal className="ht-media" delay={1}><Stone label="Taj Mahal — built of Makrana marble" dark /></Reveal>
+          <Reveal className="ht-media" delay={1}><Stone label="White marble heritage work" src="/assets/handicraft-mausoleum.jpg" sizes="(max-width: 880px) 100vw, 40vw" /></Reveal>
         </div>
       </section>
     </>

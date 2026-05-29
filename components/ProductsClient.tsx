@@ -18,8 +18,9 @@ export function ProductsClient() {
   const items = cat.items.map((it) => ({
     name: lang === "ar" ? it.ar : it.en,
     spec: (lang === "ar" ? it.sar : it.sen) || it.sen,
+    img: it.img,
   }));
-  const lbItems = items.map((i) => ({ label: i.name }));
+  const lbItems = items.map((i) => ({ label: i.name, src: i.img }));
 
   return (
     <>
@@ -61,7 +62,7 @@ export function ProductsClient() {
                   onClick={() => lb.open(lbItems, i)}
                   aria-label={it.name}
                 >
-                  <Stone label={it.name} />
+                  <Stone label={it.name} src={it.img} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 22vw" />
                   <span className="num">{pad(i + 1)}</span>
                 </button>
                 <div className="card-body">

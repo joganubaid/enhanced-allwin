@@ -14,7 +14,7 @@ export function ProjectsClient() {
   const lb = useLightbox();
 
   const all = projects.flatMap((cat) =>
-    cat.items.map((it) => ({ label: lang === "ar" ? it.ar : it.en }))
+    cat.items.map((it) => ({ label: lang === "ar" ? it.ar : it.en, src: it.img }))
   );
   let running = 0;
 
@@ -54,7 +54,7 @@ export function ProjectsClient() {
                         onClick={() => lb.open(all, flatIdx)}
                         aria-label={name}
                       >
-                        <Stone label={name} />
+                        <Stone label={name} src={it.img} sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" />
                       </button>
                       <div className="card-body">
                         <span className="tag">{t(cat.label)}</span>

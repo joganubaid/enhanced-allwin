@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
-import { marbleTypePalettes } from "@/lib/catalog";
+import { marbleTypePalettes, marbleTypeImages } from "@/lib/catalog";
 import { Stone } from "./Stone";
 import { Reveal } from "./Reveal";
 import { Counter } from "./Counter";
@@ -15,7 +15,7 @@ export function HeritageClient() {
   return (
     <>
       <section className="her-hero">
-        <Stone label="Makrana quarry — terraced marble cliffs" dark />
+        <Stone label="Makrana quarry — terraced marble cliffs" dark src="/assets/hero-marble.jpg" sizes="100vw" priority />
         <div className="wrap" style={{ maxWidth: 920, marginInline: "auto" }}>
           <p className="eyebrow center" style={{ color: "var(--brass-lite)" }}>{t("makrana.eyebrow")}</p>
           <h1 className="display" style={{ marginTop: 20 }}>{t("makrana.title")}</h1>
@@ -25,7 +25,7 @@ export function HeritageClient() {
 
       <section className="section marble-bg">
         <div className="wrap epitome">
-          <Reveal><Stone label="Makrana white marble slab, polished" /></Reveal>
+          <Reveal><Stone label="Makrana white marble slab, polished" src="/assets/marble-makrana-white.jpg" sizes="(max-width: 880px) 100vw, 45vw" /></Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{t("makrana.eyebrow")}</p>
             <h2 className="display" style={{ fontSize: "clamp(32px,4.6vw,58px)", margin: "16px 0 26px" }}>{t("makrana.epitome")}</h2>
@@ -75,7 +75,7 @@ export function HeritageClient() {
             {types.map((i) => (
               <Reveal className="type-card" key={i} delay={(i % 2) as 0 | 1}>
                 <div className="swatch img-hover">
-                  <Stone label={`type${i}`} material="marble" pal={marbleTypePalettes[i - 1]} />
+                  <Stone label={t(`mt${i}n`)} material="marble" pal={marbleTypePalettes[i - 1]} src={marbleTypeImages[i - 1]} sizes="96px" />
                 </div>
                 <div>
                   <h3>{t(`mt${i}n`)}</h3>

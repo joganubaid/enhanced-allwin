@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { homeCategories } from "@/lib/catalog";
+import { galleryImages } from "@/lib/gallery-images";
 import { Showroom } from "./Showroom";
 import { Stone } from "./Stone";
 import { Reveal } from "./Reveal";
@@ -12,14 +13,17 @@ import { useLightbox } from "./Lightbox";
 const INITIAL = 5;
 const pad = (n: number) => String(n).padStart(2, "0");
 
-function CategoryGallery({ catKey, n, index }: { catKey: string; n: number; index: number }) {
+function CategoryGallery({ catKey, gallery, index }: { catKey: string; gallery: string; index: number }) {
   const { t } = useI18n();
   const lb = useLightbox();
   const [expanded, setExpanded] = useState(false);
   const name = t(catKey);
 
-  const show = expanded ? n : Math.min(INITIAL, n);
-  const tiles = Array.from({ length: show }, (_, i) => `${name} · ${pad(i + 1)}`);
+  const photos = galleryImages[gallery] || [];
+  const total = photos.length;
+  const show = expanded ? total : Math.min(INITIAL, total);
+  const tiles = photos.slice(0, show).map((src, i) => ({ label: `${name} · ${pad(i + 1)}`, src }));
+  const allItems = photos.map((src, i) => ({ label: `${name} · ${pad(i + 1)}`, src }));
 
   return (
     <Reveal className="cat">
@@ -34,24 +38,24 @@ function CategoryGallery({ catKey, n, index }: { catKey: string; n: number; inde
           onClick={() => setExpanded((e) => !e)}
           aria-expanded={expanded}
         >
-          {n} →
+          {total} →
         </button>
       </div>
       <div className="cat-grid">
-        {tiles.map((label, i) => (
+        {tiles.map((tile, i) => (
           <button
-            key={label}
+            key={tile.src}
             className={`tile img-hover${i === 0 ? " feature" : ""}`}
             style={{ cursor: "zoom-in", padding: 0, border: "none", background: "none" }}
-            onClick={() => lb.open(tiles.map((l) => ({ label: l })), i)}
-            aria-label={label}
+            onClick={() => lb.open(allItems, i)}
+            aria-label={tile.label}
           >
-            <Stone label={label} />
+            <Stone label={tile.label} src={tile.src} sizes={i === 0 ? "(max-width: 820px) 100vw, 40vw" : "(max-width: 640px) 50vw, 20vw"} />
           </button>
         ))}
-        {!expanded && n > INITIAL && (
+        {!expanded && total > INITIAL && (
           <button className="more-tile" onClick={() => setExpanded(true)}>
-            <span className="pl">+{n - INITIAL}</span>
+            <span className="pl">+{total - INITIAL}</span>
             <span className="lbl">{t("home.seeMore")}</span>
           </button>
         )}
@@ -99,7 +103,7 @@ export function HomeClient() {
             </div>
             <div>
               {homeCategories.map((c, i) => (
-                <CategoryGallery key={c.key} catKey={c.key} n={c.n} index={i} />
+                <CategoryGallery key={c.key} catKey={c.key} gallery={c.gallery} index={i} />
               ))}
             </div>
             <div className="center" style={{ marginTop: 64 }}>

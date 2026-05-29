@@ -10,6 +10,7 @@ export interface LightboxItem {
   label: string;
   material?: string;
   pal?: string;
+  src?: string;
 }
 
 interface LightboxCtx {
@@ -45,10 +46,8 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
     [items.length]
   );
 
-  // focus management + keyboard handling while open
   useEffect(() => {
     if (!open) {
-      // restore focus to the element that opened the lightbox
       triggerRef.current?.focus?.();
       return;
     }
@@ -60,12 +59,9 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
       if (e.key === "ArrowRight") { go(1); return; }
       if (e.key === "ArrowLeft") { go(-1); return; }
       if (e.key === "Tab") {
-        // simple focus trap across the dialog's focusable controls
         const root = overlayRef.current;
         if (!root) return;
-        const f = Array.from(
-          root.querySelectorAll<HTMLElement>("button:not([disabled])")
-        );
+        const f = Array.from(root.querySelectorAll<HTMLElement>("button:not([disabled])"));
         if (!f.length) return;
         const first = f[0], last = f[f.length - 1];
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
@@ -98,7 +94,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
         <button className="lb-nav lb-prev" aria-label="Previous" onClick={() => go(-1)}><PrevIcon /></button>
         <button className="lb-nav lb-next" aria-label="Next" onClick={() => go(1)}><NextIcon /></button>
         <div className="lightbox-inner">
-          {cur && <Stone label={cur.label} material={cur.material} pal={cur.pal} />}
+          {cur && <Stone label={cur.label} material={cur.material} pal={cur.pal} src={cur.src} sizes="min(70vw, 760px)" />}
           <p className="lightbox-cap">{cur?.label}</p>
         </div>
       </div>
