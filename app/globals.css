@@ -401,9 +401,15 @@ ul { list-style: none; }
   align-items: center; justify-content: center; padding: 5vw;
 }
 .lightbox.open { display: flex; }
-.lightbox-inner { max-width: 88vw; max-height: 86vh; position: relative; animation: lbpop .5s var(--ease); }
+.lightbox-inner { max-width: 88vw; max-height: 86vh; position: relative; display: flex; flex-direction: column; align-items: center; animation: lbpop .5s var(--ease); }
 @keyframes lbpop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
-.lightbox .ph, .lightbox img { width: auto; height: auto; max-width: min(92vw, 760px); max-height: 78vh; object-fit: contain; border-radius: 3px; }
+/* The Stone is a next/image `fill` box, so it needs an explicit, non-collapsing size.
+   `width/height:auto` (with only an absolutely-positioned child) collapsed it to 0,
+   leaving just the caption. Pin a real box; `contain` shows the whole photo (no crop)
+   and the transparent bg lets the dark overlay form clean letterboxing. */
+.lightbox .ph.stone { position: relative; width: min(88vw, 820px); height: min(74vh, 820px); background: transparent; object-fit: contain; border-radius: 3px; }
+.lightbox .ph.stone img { object-fit: contain; }
+.lightbox img { width: auto; height: auto; max-width: min(92vw, 760px); max-height: 78vh; object-fit: contain; border-radius: 3px; }
 .lightbox-cap { color: var(--taupe-lite); font-family: var(--mono); font-size: 12px; letter-spacing: .15em; text-transform: uppercase; text-align: center; margin-top: 18px; }
 .lb-close, .lb-nav { position: absolute; color: var(--cream); width: 52px; height: 52px; border: 1px solid var(--line-dark); border-radius: 50%; display: grid; place-items: center; transition: all .3s; }
 .lb-close { top: 4vh; inset-inline-end: 5vw; }
@@ -417,6 +423,7 @@ ul { list-style: none; }
 
 @media (max-width: 768px) {
   .lightbox { padding: 4vw; }
+  .lightbox .ph.stone { width: 92vw; height: 64vh; }
   .lb-prev { inset-inline-start: 2vw; }
   .lb-next { inset-inline-end: 2vw; }
   [dir="rtl"] .lb-prev { inset-inline-start: auto; inset-inline-end: 2vw; }
