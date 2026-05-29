@@ -4,12 +4,9 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
-  const localeCookie = request.cookies.get("locale");
-  const locale = localeCookie?.value || "en";
-
-  if (localeCookie) {
-    response.cookies.set("locale", localeCookie.value);
-  }
+  // Validate the locale cookie against the known set; never trust the raw value.
+  const raw = request.cookies.get("locale")?.value;
+  const locale = raw === "ar" ? "ar" : "en";
 
   response.headers.set("x-locale", locale);
 

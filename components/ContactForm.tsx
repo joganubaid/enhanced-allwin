@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { siteConfig } from "@/lib/config";
 import { PinIcon, PhoneIcon, MailIcon, WaIcon, CheckIcon } from "./icons";
@@ -13,17 +13,29 @@ export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement>(null);
 
   const clearErr = (k: keyof Errors) => setErrors((e) => ({ ...e, [k]: false }));
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     const next: Errors = {};
     if (!form.name.trim()) next.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) next.email = true;
     if (!form.message.trim()) next.message = true;
     setErrors(next);
-    if (Object.keys(next).length) return;
+    if (Object.keys(next).length) {
+      if (next.name) nameRef.current?.focus();
+      else if (next.email) emailRef.current?.focus();
+      else if (next.message) messageRef.current?.focus();
+      return;
+    }
 
     setSending(true);
     try {
@@ -36,11 +48,12 @@ export function ContactForm() {
       if (res.ok) {
         setSubmitted(true);
         setForm({ name: "", email: "", phone: "", interest: "", message: "" });
+        requestAnimationFrame(() => successHeadingRef.current?.focus());
       } else {
-        alert(data.error || t("contact.errorMessage"));
+        setSubmitError(`${data.error || t("contact.errorMessage")} — WhatsApp: ${siteConfig.phone}`);
       }
     } catch {
-      alert(`${t("contact.errorMessage")} — WhatsApp: ${siteConfig.phone}`);
+      setSubmitError(`${t("contact.errorMessage")} — WhatsApp: ${siteConfig.phone}`);
     } finally {
       setSending(false);
     }
@@ -60,9 +73,9 @@ export function ContactForm() {
         <div className="wrap contact-grid">
           <div>
             {submitted ? (
-              <div className="success">
+              <div className="success" role="status" aria-live="polite">
                 <div className="ring"><CheckIcon /></div>
-                <h3>{t("contact.successTitle")}</h3>
+                <h3 ref={successHeadingRef} tabIndex={-1}>{t("contact.successTitle")}</h3>
                 <p>{t("contact.successMessage")}</p>
                 <button onClick={() => setSubmitted(false)}>{t("contact.sendAnother")}</button>
               </div>
@@ -72,20 +85,26 @@ export function ContactForm() {
                   <div className={`field${errors.name ? " error" : ""}`}>
                     <label htmlFor="cf-name">{t("contact.yourName")}</label>
                     <input
+                      ref={nameRef}
                       id="cf-name" type="text" name="name" placeholder={t("contact.yourName")}
                       value={form.name}
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "cf-name-err" : undefined}
                       onChange={(e) => { setForm({ ...form, name: e.target.value }); clearErr("name"); }}
                     />
-                    <span className="err">{t("contact.nameRequired")}</span>
+                    <span className="err" id="cf-name-err">{t("contact.nameRequired")}</span>
                   </div>
                   <div className={`field${errors.email ? " error" : ""}`}>
                     <label htmlFor="cf-email">{t("contact.emailAddress")}</label>
                     <input
+                      ref={emailRef}
                       id="cf-email" type="email" name="email" placeholder={t("contact.emailAddress")}
                       value={form.email}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "cf-email-err" : undefined}
                       onChange={(e) => { setForm({ ...form, email: e.target.value }); clearErr("email"); }}
                     />
-                    <span className="err">{t("contact.emailRequired")}</span>
+                    <span className="err" id="cf-email-err">{t("contact.emailRequired")}</span>
                   </div>
                 </div>
                 <div className="row2">
@@ -111,12 +130,20 @@ export function ContactForm() {
                 <div className={`field${errors.message ? " error" : ""}`}>
                   <label htmlFor="cf-message">{t("contact.yourMessage")}</label>
                   <textarea
+                    ref={messageRef}
                     id="cf-message" name="message" placeholder={t("contact.yourMessage")}
                     value={form.message}
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? "cf-message-err" : undefined}
                     onChange={(e) => { setForm({ ...form, message: e.target.value }); clearErr("message"); }}
                   />
-                  <span className="err">{t("contact.messageRequired")}</span>
+                  <span className="err" id="cf-message-err">{t("contact.messageRequired")}</span>
                 </div>
+                {submitError && (
+                  <div className="field error" role="alert">
+                    <span className="err" style={{ display: "block" }}>{submitError}</span>
+                  </div>
+                )}
                 <button type="submit" className="btn btn-primary submit-btn" disabled={sending}>
                   <span>{sending ? t("contact.sending") : t("contact.sendEnquiry")}</span>
                 </button>

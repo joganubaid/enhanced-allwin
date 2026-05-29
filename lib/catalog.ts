@@ -27,31 +27,31 @@ export const products: CatalogCategory[] = [
     { en: "Fantasy Brown Marble", ar: "رخام بني فانتازي", sen: "Brown-beige veining", sar: "عروق بنية-بيج", img: "/assets/marble-fantasy-brown.jpg" },
   ]},
   { id: "granite", label: "products.granite", items: [
-    { en: "Alaska Pink Granite", ar: "جرانيت ألاسكا الوردي", sen: "Icy blue tones", sar: "درجات زرقاء جليدية", img: "/assets/granite-alaska-pink.jpg" },
-    { en: "Alaska Blue Dunes", ar: "كثبان ألاسكا الزرقاء", sen: "Exotic pattern", sar: "نمط غريب", img: "/assets/granite-alaska-blue-dunes.jpg" },
-    { en: "Alaska Black & White", ar: "ألاسكا أبيض وأسود", sen: "Premium white", sar: "أبيض متميز", img: "/assets/granite-alaska-black-white.jpg" },
+    { en: "Alaska Pink Granite", ar: "جرانيت ألاسكا الوردي", sen: "Soft pink tones", sar: "درجات وردية ناعمة", img: "/assets/granite-alaska-pink.jpg" },
+    { en: "Alaska Blue Dunes", ar: "كثبان ألاسكا الزرقاء", sen: "Exotic blue pattern", sar: "نمط أزرق غريب", img: "/assets/granite-alaska-blue-dunes.jpg" },
+    { en: "Alaska Black & White", ar: "ألاسكا أبيض وأسود", sen: "Black & white speckle", sar: "نقش أبيض وأسود", img: "/assets/granite-alaska-black-white.jpg" },
     { en: "Alaska Gold Granite", ar: "جرانيت ألاسكا الذهبي", sen: "Rich gold", sar: "ذهبي غني", img: "/assets/granite-alaska-gold.jpg" },
     { en: "Alaska White Granite", ar: "جرانيت ألاسكا الأبيض", sen: "White with movement", sar: "أبيض بحركة", img: "/assets/granite-alaska-white.jpg" },
-    { en: "Alaska Waves Granite", ar: "جرانيت ألاسكا الموجي", sen: "European green", sar: "أخضر أوروبي", img: "/assets/granite-alaska-waves.jpg" },
-    { en: "Alaska Mixed Granite", ar: "جرانيت ألاسكا المختلط", sen: "Warm cappuccino", sar: "كابتشينو دافئ", img: "/assets/granite-alaska-mixed.jpg" },
+    { en: "Alaska Waves Granite", ar: "جرانيت ألاسكا الموجي", sen: "Wavy movement", sar: "حركة موجية", img: "/assets/granite-alaska-waves.jpg" },
+    { en: "Alaska Mixed Granite", ar: "جرانيت ألاسكا المختلط", sen: "Mixed tones", sar: "درجات مختلطة", img: "/assets/granite-alaska-mixed.jpg" },
     { en: "Alaska Red Granite", ar: "جرانيت ألاسكا الأحمر", sen: "Indian red", sar: "أحمر هندي", img: "/assets/granite-alaska-red.jpg" },
     { en: "Alaska Super Gold", ar: "ألاسكا سوبر الذهبي", sen: "Divine gold", sar: "ذهبي مهيب", img: "/assets/granite-alaska-super-gold.jpg" },
     { en: "Alaska Super Pink", ar: "ألاسكا سوبر الوردي", sen: "Rose pink", sar: "وردي", img: "/assets/granite-alaska-super-pink.jpg" },
     { en: "Imperial Red Granite", ar: "جرانيت إمبراطوري أحمر", sen: "Deep red", sar: "أحمر عميق", img: "/assets/granite-imperial-red.jpg" },
-    { en: "Black Galaxy Granite", ar: "جرانيت بلاك غالاكسي", sen: "Antique finish", sar: "تشطيب أثري", img: "/assets/granite-black-galaxy.jpg" },
-    { en: "Blue Pearl Granite", ar: "جرانيت اللؤلؤ الأزرق", sen: "Marine black", sar: "أسود بحري", img: "/assets/granite-blue-pearl.jpg" },
+    { en: "Black Galaxy Granite", ar: "جرانيت بلاك غالاكسي", sen: "Black with gold flecks", sar: "أسود ببقع ذهبية", img: "/assets/granite-black-galaxy.jpg" },
+    { en: "Blue Pearl Granite", ar: "جرانيت اللؤلؤ الأزرق", sen: "Blue pearl sheen", sar: "لمعان لؤلؤي أزرق", img: "/assets/granite-blue-pearl.jpg" },
     { en: "Tan Brown Granite", ar: "جرانيت بني فاتح", sen: "Brown tones", sar: "درجات بنية", img: "/assets/granite-tan-brown.jpg" },
     { en: "Kashmir White Granite", ar: "جرانيت كشمير الأبيض", sen: "White base", sar: "قاعدة بيضاء", img: "/assets/granite-kashmir-white.jpg" },
     { en: "Jet Black Granite", ar: "جرانيت أسود نفاث", sen: "Deep black", sar: "أسود عميق", img: "/assets/granite-jet-black.jpg" },
     { en: "Green Pearl Granite", ar: "جرانيت اللؤلؤ الأخضر", sen: "Green-toned", sar: "بلون أخضر", img: "/assets/granite-green-pearl.jpg" },
   ]},
   { id: "cultured", label: "products.cultured", items: [
-    { en: "Iced White Cultured", ar: "أبيض متجمد مصنّع", sen: "Engineered · pure white", sar: "هندسي · أبيض نقي", img: "/assets/handicraft-item-25.jpg" },
-    { en: "Calcutta Royal Cultured", ar: "كالكوتا الملكي مصنّع", sen: "Calacatta pattern", sar: "نمط كالاكاتا", img: "/assets/handicraft-item-02.jpg" },
+    { en: "Iced White Cultured", ar: "أبيض متجمد مصنّع", sen: "Engineered · cool white", sar: "هندسي · أبيض بارد", img: "/assets/handicraft-item-25.jpg" },
+    { en: "Calacatta Royal Cultured", ar: "كالاكاتا الملكي مصنّع", sen: "Calacatta veining", sar: "نمط كالاكاتا", img: "/assets/handicraft-item-02.jpg" },
     { en: "Ocean Blue Cultured", ar: "أزرق المحيط مصنّع", sen: "Blue tones", sar: "درجات زرقاء", img: "/assets/handicraft-item-03.jpg" },
-    { en: "Black Cultured Marble", ar: "أسود مصنّع", sen: "Rich red", sar: "أحمر غني", img: "/assets/handicraft-item-04.jpg" },
-    { en: "Snow White Cultured", ar: "أبيض ثلجي مصنّع", sen: "Snow white", sar: "أبيض ثلجي", img: "/assets/handicraft-item-05.jpg" },
-    { en: "Nano White Cultured", ar: "نانو أبيض مصنّع", sen: "Nano white", sar: "نانو أبيض", img: "/assets/handicraft-item-06.jpg" },
+    { en: "Black Cultured Marble", ar: "أسود مصنّع", sen: "Deep black", sar: "أسود عميق", img: "/assets/handicraft-item-04.jpg" },
+    { en: "Snow White Cultured", ar: "أبيض ثلجي مصنّع", sen: "Bright snow white", sar: "أبيض ثلجي ناصع", img: "/assets/handicraft-item-05.jpg" },
+    { en: "Nano White Cultured", ar: "نانو أبيض مصنّع", sen: "Nano-glass white", sar: "أبيض نانو زجاجي", img: "/assets/handicraft-item-06.jpg" },
     { en: "Beige Royal Cultured", ar: "بيج ملكي مصنّع", sen: "Warm beige", sar: "بيج دافئ", img: "/assets/handicraft-item-07.jpg" },
     { en: "Royal Marmi Cultured", ar: "رويال مارمي مصنّع", sen: "Royal pattern", sar: "نمط ملكي", img: "/assets/handicraft-item-08.jpg" },
   ]},
@@ -103,10 +103,10 @@ export const projects: CatalogCategory[] = [
   ]},
   { id: "heritage", label: "projects.heritage", items: [
     { en: "Islamic Calligraphy — Hand Naqsh Work", ar: "خط عربي — عمل نقش يدوي", sen: "White marble calligraphy panels for masjid & mausoleum.", sar: "لوحات خط رخامية بيضاء للمساجد والأضرحة.", img: "/assets/project-calligraphy.jpg" },
-    { en: "Marble Jali & Lattice Work", ar: "أعمال الجالي الرخامي", sen: "Intricate marble Jali screens, Muqarnas and lattice work.", sar: "شاشات جالي رخامية دقيقة ومقرنصات وأعمال شبك.", img: "/assets/handicraft-jali.jpg" },
-    { en: "Marble Arch — Islamic Pattern", ar: "عقد رخامي — نمط إسلامي", sen: "White marble arches with Islamic architectural patterns.", sar: "عقود رخامية بيضاء بأنماط معمارية إسلامية.", img: "/assets/handicraft-arch.jpg" },
-    { en: "White Marble Mausoleum Work", ar: "أعمال ضريح رخامي أبيض", sen: "White marble hand work with Islamic architectural detailing.", sar: "عمل يدوي رخامي أبيض بتفاصيل معمارية إسلامية.", img: "/assets/handicraft-mausoleum.jpg" },
-    { en: "Muqarnas & Honeycomb Vaulting", ar: "مقرنصات وأقبية عسلية", sen: "White marble Muqarnas, Qibla work and lattice Panjara.", sar: "مقرنصات رخامية بيضاء وأعمال قبلة وشبك بنجارا.", img: "/assets/handicraft-muqarnas.jpg" },
+    { en: "Marble Jali & Lattice Work", ar: "أعمال الجالي الرخامي", sen: "Intricate marble Jali screens, Muqarnas and lattice work.", sar: "شاشات جالي رخامية دقيقة ومقرنصات وأعمال شبك.", img: "/assets/handicraft-islamic-lattice.jpg" },
+    { en: "Marble Arch — Islamic Pattern", ar: "عقد رخامي — نمط إسلامي", sen: "White marble arches with Islamic architectural patterns.", sar: "عقود رخامية بيضاء بأنماط معمارية إسلامية.", img: "/assets/handicraft-naqsh-carving.jpg" },
+    { en: "White Marble Mausoleum Work", ar: "أعمال ضريح رخامي أبيض", sen: "White marble hand work with Islamic architectural detailing.", sar: "عمل يدوي رخامي أبيض بتفاصيل معمارية إسلامية.", img: "/assets/handicraft-qibla-masjid.jpg" },
+    { en: "Muqarnas & Honeycomb Vaulting", ar: "مقرنصات وأقبية عسلية", sen: "White marble Muqarnas, Qibla work and lattice Panjara.", sar: "مقرنصات رخامية بيضاء وأعمال قبلة وشبك بنجارا.", img: "/assets/handicraft-sandstone-lattice.jpg" },
     { en: "Jodhpuri Stone Arch — Heritage Design", ar: "عقد حجر جودبوري — تصميم تراثي", sen: "Traditional Jodhpuri arch with hand-carved panels and Naqsh work.", sar: "عقد جودبوري تقليدي بألواح منحوتة يدوياً وعمل نقش.", img: "/assets/project-jodhpuri-arch.jpg" },
   ]},
   { id: "homeDecor", label: "projects.homeDecor", items: [
@@ -119,15 +119,15 @@ export const projects: CatalogCategory[] = [
   ]},
 ];
 
-/** Home gallery categories (label i18n key + how many tiles). Photos come from lib/gallery-images. */
-export const homeCategories: { key: string; gallery: string; n: number }[] = [
-  { key: "cat.floor", gallery: "floor", n: 13 },
-  { key: "cat.fountain", gallery: "fountain", n: 6 },
-  { key: "cat.handCraft", gallery: "handCraft", n: 16 },
-  { key: "cat.inlay", gallery: "inlay", n: 6 },
-  { key: "cat.masjid", gallery: "masjid", n: 9 },
-  { key: "cat.stair", gallery: "stair", n: 7 },
-  { key: "cat.table", gallery: "table", n: 11 },
+/** Home gallery categories (label i18n key + which gallery). Tile count = gallery length. */
+export const homeCategories: { key: string; gallery: string }[] = [
+  { key: "cat.floor", gallery: "floor" },
+  { key: "cat.fountain", gallery: "fountain" },
+  { key: "cat.handCraft", gallery: "handCraft" },
+  { key: "cat.inlay", gallery: "inlay" },
+  { key: "cat.masjid", gallery: "masjid" },
+  { key: "cat.stair", gallery: "stair" },
+  { key: "cat.table", gallery: "table" },
 ];
 
 /** Heritage "types of Makrana marble" — palette + real photo per type card (1..8). */

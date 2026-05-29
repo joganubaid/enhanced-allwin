@@ -15,6 +15,10 @@ export function generatePageMetadata({ title, description, path }: PageMetadata)
   const metaDesc = description || siteConfig.description;
   const canonicalUrl = path ? `${siteConfig.url}${path}` : siteConfig.url;
 
+  // Shared OG image descriptor — kept DRY across openGraph + twitter.
+  // Resolved relative to metadataBase; the app/opengraph-image route also auto-wires this.
+  const ogImages = [{ url: "/opengraph-image", width: 1200, height: 630, alt: siteConfig.name }];
+
   return {
     title: fullTitle,
     description: metaDesc,
@@ -32,8 +36,16 @@ export function generatePageMetadata({ title, description, path }: PageMetadata)
       description: metaDesc,
       url: canonicalUrl,
       siteName: siteConfig.name,
-      locale: "en_US",
+      locale: "en_IN",
+      alternateLocale: ["ar_IN"],
       type: "website",
+      images: ogImages,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description: metaDesc,
+      images: ogImages,
     },
     alternates: {
       canonical: canonicalUrl,

@@ -2,6 +2,11 @@
 const nextConfig = {
   poweredByHeader: false,
   compress: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 2592000,
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
   async headers() {
     return [
       {

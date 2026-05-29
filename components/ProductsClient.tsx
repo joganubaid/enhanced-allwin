@@ -3,11 +3,10 @@
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { products } from "@/lib/catalog";
+import { pad } from "@/lib/format";
 import { Stone } from "./Stone";
 import { Reveal } from "./Reveal";
 import { useLightbox } from "./Lightbox";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export function ProductsClient() {
   const { t, lang } = useI18n();

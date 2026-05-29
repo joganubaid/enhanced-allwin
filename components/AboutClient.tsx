@@ -39,7 +39,7 @@ export function AboutClient() {
 
       <section className="section dark">
         <div className="wrap founder">
-          <Reveal className="founder-portrait"><Stone label="Founder — Mr. Abdul Hafeez Rander" dark /></Reveal>
+          <Reveal className="founder-portrait"><Stone label="Master artisans hand-finishing intricate marble inlay at the Makrana atelier" dark src="/assets/handicraft-inlay-work.jpg" sizes="(max-width: 880px) 100vw, 45vw" /></Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{t("about.founderEyebrow")}</p>
             <blockquote style={{ marginTop: 22 }}>“<span>{t("about.founderText")}</span>”</blockquote>

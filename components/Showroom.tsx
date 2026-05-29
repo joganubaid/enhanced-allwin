@@ -45,10 +45,12 @@ export function Showroom() {
       const texCache: Record<string, any> = {};
       const palAt = (i: number) => MIX[i % MIX.length];
 
+      const isMobile = window.innerWidth < 768;
+
       const renderer = new THREE.WebGLRenderer({
         antialias: true, alpha: false, powerPreference: "high-performance", preserveDrawingBuffer: true,
       });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.outputEncoding = THREE.sRGBEncoding;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -109,7 +111,7 @@ export function Showroom() {
       const key = new THREE.DirectionalLight(0xfff6e8, 1.9);
       key.position.set(12, 22, 10);
       key.castShadow = true;
-      key.shadow.mapSize.set(2048, 2048);
+      key.shadow.mapSize.set(isMobile ? 1024 : 2048, isMobile ? 1024 : 2048);
       key.shadow.camera.near = 1; key.shadow.camera.far = 120;
       key.shadow.camera.left = -40; key.shadow.camera.right = 40;
       key.shadow.camera.top = 40; key.shadow.camera.bottom = -40;
@@ -276,7 +278,7 @@ export function Showroom() {
           <div className="chapter center" data-a="0" data-b="0.10">
             <div className="holder">
               <p className="ch-eyebrow">{t("home.tagline")}</p>
-              <h1 className="ch-title">Allwin<em> Marbles</em></h1>
+              <div className="ch-title" aria-hidden="true">Allwin<em> Marbles</em></div>
               <p className="ch-line ch-soft" style={{ marginInline: "auto" }}>{t("home.heroLine")}</p>
             </div>
           </div>

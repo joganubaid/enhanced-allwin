@@ -18,6 +18,9 @@ function CategoryGallery({ catKey, gallery, index }: { catKey: string; gallery: 
   const lb = useLightbox();
   const [expanded, setExpanded] = useState(false);
   const name = t(catKey);
+  // Falls back to a literal if the dict key isn't present yet (dict owned elsewhere).
+  const seeLessRaw = t("home.seeLess");
+  const seeLess = seeLessRaw === "home.seeLess" ? "Show less" : seeLessRaw;
 
   const photos = galleryImages[gallery] || [];
   const total = photos.length;
@@ -38,7 +41,18 @@ function CategoryGallery({ catKey, gallery, index }: { catKey: string; gallery: 
           onClick={() => setExpanded((e) => !e)}
           aria-expanded={expanded}
         >
-          {total} →
+          <span>{expanded ? seeLess : `${total} ${t("home.seeMore")}`}</span>
+          <span
+            aria-hidden="true"
+            style={{
+              display: "inline-block",
+              marginInlineStart: 6,
+              transition: "transform 0.25s ease",
+              transform: expanded ? "rotate(-90deg)" : "rotate(90deg)",
+            }}
+          >
+            ›
+          </span>
         </button>
       </div>
       <div className="cat-grid">
@@ -77,9 +91,9 @@ export function HomeClient() {
             <div className="intro-grid">
               <Reveal>
                 <p className="eyebrow">{t("home.introEyebrow")}</p>
-                <h2 className="display" style={{ fontSize: "clamp(34px,4.6vw,62px)", marginTop: 22 }}>
+                <h1 className="display" style={{ fontSize: "clamp(34px,4.6vw,62px)", marginTop: 22 }}>
                   {t("home.introTitle")}
-                </h2>
+                </h1>
               </Reveal>
               <Reveal delay={1}>
                 <div className="divider" />

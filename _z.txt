@@ -1,0 +1,10 @@
+granite-amber-yellow refs=0
+granite-range refs=0
+slab-onyx refs=0
+slab-sandstone refs=0
+marble-vietnam-white refs=0
+category-slabs refs=0
+handicraft-furniture refs=0
+handicraft-naqsh-carving refs=0
+granite-black-galaxy refs=1
+slab-quartzite refs=0

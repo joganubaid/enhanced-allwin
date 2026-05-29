@@ -13,11 +13,12 @@ interface I18nCtx {
 
 const I18nContext = createContext<I18nCtx | null>(null);
 const RTL: Lang[] = ["ar"];
+const STORAGE_KEY = "allwin-lang";
 
 function getInitial(): Lang {
   if (typeof window === "undefined") return "en";
   try {
-    const s = localStorage.getItem("allwin-lang");
+    const s = localStorage.getItem(STORAGE_KEY);
     if (s === "en" || s === "ar") return s;
   } catch {}
   return "en";
@@ -29,8 +30,14 @@ function applyDir(l: Lang) {
   document.documentElement.dir = RTL.includes(l) ? "rtl" : "ltr";
 }
 
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+export function I18nProvider({
+  children,
+  initialLang,
+}: {
+  children: ReactNode;
+  initialLang?: Lang;
+}) {
+  const [lang, setLangState] = useState<Lang>(initialLang ?? "en");
 
   // Apply the persisted locale after mount (keeps SSR output = "en", no mismatch).
   useEffect(() => {
@@ -41,7 +48,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
-    try { localStorage.setItem("allwin-lang", l); } catch {}
+    try { localStorage.setItem(STORAGE_KEY, l); } catch {}
+    try { document.cookie = "locale=" + l + "; path=/; max-age=31536000"; } catch {}
     applyDir(l);
   }, []);
 

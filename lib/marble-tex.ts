@@ -1,6 +1,8 @@
 /* Procedural veined-marble texture painted to a <canvas> (ported from marble-tex.js).
    Used as a Three.js CanvasTexture map. Client-only (uses document/canvas). */
 
+import { mulberry, hexA } from "@/lib/rng";
+
 type Pal = { base: [string, string, string]; vein: string; veinHi: string; spec: string; dark?: boolean };
 
 const PALS: Record<string, Pal> = {
@@ -13,20 +15,6 @@ const PALS: Record<string, Pal> = {
   rose:   { base: ["#faeee9", "#f0d6cd", "#e0b3a8"], vein: "#a85c52", veinHi: "#fff3ee", spec: "#d49b8f" },
   black:  { base: ["#2b2d33", "#212229", "#16171c"], vein: "#cdb45f", veinHi: "#f4e6b8", spec: "#54555f", dark: true },
 };
-
-function mulberry(a: number): () => number {
-  return function () {
-    a |= 0; a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-function hexA(hex: string, a: number) {
-  let h = hex.replace("#", ""); if (h.length === 8) h = h.slice(0, 6);
-  const r = parseInt(h.substr(0, 2), 16), g = parseInt(h.substr(2, 2), 16), b = parseInt(h.substr(4, 2), 16);
-  return `rgba(${r},${g},${b},${a})`;
-}
 
 type Pt = [number, number];
 function veinPath(rnd: () => number, a: Pt, b: Pt, disp: number, depth: number, pts: Pt[]) {

@@ -6,8 +6,7 @@ import { projects } from "@/lib/catalog";
 import { Stone } from "./Stone";
 import { Reveal } from "./Reveal";
 import { useLightbox } from "./Lightbox";
-
-const pad = (n: number) => String(n).padStart(2, "0");
+import { pad } from "@/lib/format";
 
 export function ProjectsClient() {
   const { t, lang } = useI18n();
@@ -16,7 +15,12 @@ export function ProjectsClient() {
   const all = projects.flatMap((cat) =>
     cat.items.map((it) => ({ label: lang === "ar" ? it.ar : it.en, src: it.img }))
   );
-  let running = 0;
+
+  // Cumulative flat-index offset for the start of each category.
+  const offsets = projects.reduce<number[]>((acc, cat, ci) => {
+    acc[ci] = ci === 0 ? 0 : acc[ci - 1] + projects[ci - 1].items.length;
+    return acc;
+  }, []);
 
   return (
     <>
@@ -40,7 +44,7 @@ export function ProjectsClient() {
                 {cat.items.map((it, i) => {
                   const name = lang === "ar" ? it.ar : it.en;
                   const desc = (lang === "ar" ? it.sar : it.sen) || it.sen;
-                  const flatIdx = running++;
+                  const flatIdx = offsets[ci] + i;
                   return (
                     <Reveal
                       key={`${cat.id}-${name}`}

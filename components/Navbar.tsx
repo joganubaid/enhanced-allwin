@@ -46,8 +46,8 @@ export function Navbar() {
 
   const langBtns = (
     <div className="lang-toggle">
-      <button className={lang === "en" ? "active" : ""} data-lang="en" onClick={() => setLang("en")}>EN</button>
-      <button className={lang === "ar" ? "active" : ""} data-lang="ar" onClick={() => setLang("ar")}>ع</button>
+      <button className={lang === "en" ? "active" : ""} data-lang="en" aria-label="English" aria-pressed={lang === "en"} onClick={() => setLang("en")}>EN</button>
+      <button className={lang === "ar" ? "active" : ""} data-lang="ar" aria-label="العربية" aria-pressed={lang === "ar"} onClick={() => setLang("ar")}>ع</button>
     </div>
   );
 
@@ -95,8 +95,8 @@ export function Navbar() {
         ))}
         <div className="drawer-foot">
           <div className="lang-toggle" style={{ alignSelf: "flex-start" }}>
-            <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
-            <button className={lang === "ar" ? "active" : ""} onClick={() => setLang("ar")}>ع</button>
+            <button className={lang === "en" ? "active" : ""} aria-label="English" aria-pressed={lang === "en"} onClick={() => setLang("en")}>EN</button>
+            <button className={lang === "ar" ? "active" : ""} aria-label="العربية" aria-pressed={lang === "ar"} onClick={() => setLang("ar")}>ع</button>
           </div>
           <Link className="btn btn-primary" href="/contact">{t("nav.callNow")}</Link>
         </div>
