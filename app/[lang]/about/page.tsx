@@ -16,6 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   });
 }
 
-export default function AboutPage() {
-  return <AboutClient />;
+export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: raw } = await params;
+  const lang: Lang = isLang(raw) ? raw : "en";
+  return <AboutClient lang={lang} />;
 }

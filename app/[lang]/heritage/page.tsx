@@ -16,6 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   });
 }
 
-export default function HeritagePage() {
-  return <HeritageClient />;
+export default async function HeritagePage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: raw } = await params;
+  const lang: Lang = isLang(raw) ? raw : "en";
+  return <HeritageClient lang={lang} />;
 }

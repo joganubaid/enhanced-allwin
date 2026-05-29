@@ -1,16 +1,15 @@
-"use client";
-
 import Link from "next/link";
-import { useI18n } from "@/lib/i18n";
+import { translator, localizeHref } from "@/lib/locale";
+import type { Lang } from "@/lib/dict";
 import { projects } from "@/lib/catalog";
-import { Stone } from "./Stone";
 import { Reveal } from "./Reveal";
-import { useLightbox } from "./Lightbox";
+import { LightboxTile } from "./LightboxTile";
 import { pad } from "@/lib/format";
 
-export function ProjectsClient() {
-  const { t, lang } = useI18n();
-  const lb = useLightbox();
+/* Server Component — static project copy rendered on the server; only the
+   zoomable image tiles (LightboxTile) are client islands. */
+export function ProjectsClient({ lang }: { lang: Lang }) {
+  const t = translator(lang);
 
   const all = projects.flatMap((cat) =>
     cat.items.map((it) => ({ label: lang === "ar" ? it.ar : it.en, src: it.img }))
@@ -52,14 +51,15 @@ export function ProjectsClient() {
                       delay={(i % 3) as 0 | 1 | 2}
                       className="card proj-card"
                     >
-                      <button
+                      <LightboxTile
+                        items={all}
+                        index={flatIdx}
+                        label={name}
+                        src={it.img}
+                        sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
                         className="card-media img-hover"
                         style={{ cursor: "zoom-in", display: "block", width: "100%", padding: 0, border: "none", background: "none" }}
-                        onClick={() => lb.open(all, flatIdx)}
-                        aria-label={name}
-                      >
-                        <Stone label={name} src={it.img} sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" />
-                      </button>
+                      />
                       <div className="card-body">
                         <span className="tag">{t(cat.label)}</span>
                         <h3 className="card-title">{name}</h3>
@@ -78,7 +78,7 @@ export function ProjectsClient() {
         <div className="wrap" style={{ maxWidth: 680, marginInline: "auto" }}>
           <p className="eyebrow center">{t("home.ctaEyebrow")}</p>
           <h2 className="display" style={{ fontSize: "clamp(34px,5vw,64px)", marginTop: 18 }}>{t("home.ctaTitle")}</h2>
-          <Link className="btn btn-primary" style={{ marginTop: 30 }} href="/contact"><span>{t("home.ctaBtn")}</span> →</Link>
+          <Link className="btn btn-primary" style={{ marginTop: 30 }} href={localizeHref(lang, "/contact")}><span>{t("home.ctaBtn")}</span> →</Link>
         </div>
       </section>
     </>

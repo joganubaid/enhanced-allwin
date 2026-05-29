@@ -1,14 +1,15 @@
-"use client";
-
 import Link from "next/link";
-import { useI18n } from "@/lib/i18n";
+import { translator, localizeHref } from "@/lib/locale";
+import type { Lang } from "@/lib/dict";
 import { marbleTypePalettes, marbleTypeImages } from "@/lib/catalog";
 import { Stone } from "./Stone";
 import { Reveal } from "./Reveal";
 import { Counter } from "./Counter";
 
-export function HeritageClient() {
-  const { t, lhref } = useI18n();
+/* Server Component — static heritage content rendered on the server (zero
+   component JS). Stone / Reveal / Counter remain client islands. */
+export function HeritageClient({ lang }: { lang: Lang }) {
+  const t = translator(lang);
   const ranges = Array.from({ length: 14 }, (_, i) => i + 1);
   const types = Array.from({ length: 8 }, (_, i) => i + 1);
 
@@ -88,16 +89,6 @@ export function HeritageClient() {
       </section>
 
       <section className="section">
-        <div className="wrap">
-          <p className="eyebrow">{t("makrana.propertiesTitle")}</p>
-          <div className="prop-band" style={{ marginTop: 34 }}>
-            <Reveal as="p" className="big">{t("makrana.properties1")}</Reveal>
-            <Reveal as="p" className="taupe" delay={1}>{t("makrana.properties2")}</Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="section dark">
         <div className="wrap geo-grid">
           <Reveal>
             <p className="eyebrow">{t("makrana.geological")}</p>
@@ -115,11 +106,11 @@ export function HeritageClient() {
         </div>
       </section>
 
-      <section className="section center marble-bg">
+      <section className="section dark center marble-bg">
         <div className="wrap" style={{ maxWidth: 760, marginInline: "auto" }}>
           <p className="eyebrow center">{t("makrana.title")}</p>
           <h2 className="display" style={{ fontSize: "clamp(32px,5vw,60px)", marginTop: 18 }}>{t("home.ctaTitle")}</h2>
-          <Link className="btn btn-primary" style={{ marginTop: 28 }} href={lhref("/contact")}><span>{t("home.ctaBtn")}</span> →</Link>
+          <Link className="btn btn-primary" style={{ marginTop: 28 }} href={localizeHref(lang, "/contact")}><span>{t("home.ctaBtn")}</span> →</Link>
         </div>
       </section>
     </>

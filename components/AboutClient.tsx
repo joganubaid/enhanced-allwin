@@ -1,13 +1,15 @@
-"use client";
-
 import Link from "next/link";
-import { useI18n } from "@/lib/i18n";
+import { translator, localizeHref } from "@/lib/locale";
+import type { Lang } from "@/lib/dict";
 import { Stone } from "./Stone";
 import { Reveal } from "./Reveal";
 import { CheckIcon } from "./icons";
 
-export function AboutClient() {
-  const { t, lhref } = useI18n();
+/* Server Component: all static text is rendered on the server (zero component JS).
+   Stone / Reveal stay client islands (next/image, IntersectionObserver) but are
+   rendered from here without shipping this wrapper's markup as JS. */
+export function AboutClient({ lang }: { lang: Lang }) {
+  const t = translator(lang);
 
   return (
     <>
@@ -39,7 +41,7 @@ export function AboutClient() {
 
       <section className="section dark">
         <div className="wrap founder">
-          <Reveal className="founder-portrait"><Stone label="Master artisans hand-finishing intricate marble inlay at the Makrana atelier" dark src="/assets/handicraft-inlay-work.jpg" sizes="(max-width: 880px) 100vw, 45vw" /></Reveal>
+          <Reveal className="founder-portrait"><Stone label="Master stone atelier — carving workshop" dark src="/assets/handicraft-naqsh-carving.jpg" sizes="(max-width: 880px) 100vw, 40vw" /></Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{t("about.founderEyebrow")}</p>
             <blockquote style={{ marginTop: 22 }}>“<span>{t("about.founderText")}</span>”</blockquote>
@@ -120,7 +122,7 @@ export function AboutClient() {
             <p className="eyebrow">{t("makrana.eyebrow")}</p>
             <h2 className="display" style={{ fontSize: "clamp(34px,5vw,62px)", margin: "18px 0 24px" }}>{t("makrana.title")}</h2>
             <p className="lead">{t("makrana.subtitle")}</p>
-            <Link className="link-arrow" style={{ marginTop: 28, color: "var(--brass-lite)" }} href={lhref("/heritage")}><span>{t("nav.heritage")}</span> →</Link>
+            <Link className="link-arrow" style={{ marginTop: 28, color: "var(--brass-lite)" }} href={localizeHref(lang, "/heritage")}><span>{t("nav.heritage")}</span> →</Link>
           </Reveal>
           <Reveal className="ht-media" delay={1}><Stone label="White marble heritage work" src="/assets/handicraft-mausoleum.jpg" sizes="(max-width: 880px) 100vw, 40vw" /></Reveal>
         </div>
