@@ -224,3 +224,24 @@
   .lightbox-inner { animation: none; }
   .stage-hint .bar { animation: none; }
 }
+
+/* ============ REAL-PHOTO FIXES ============ */
+/* next/image fill needs a positioned, sized box. Make every Stone fill its
+   container, and guarantee the card/swatch wrappers are positioned + clipped. */
+.stone { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; }
+.stone img { object-fit: cover; }
+.card-media,
+.type-card .swatch,
+.story-media,
+.founder-portrait,
+.heritage-teaser .ht-media,
+.about-hero,
+.her-hero,
+.epitome .ph { position: relative; overflow: hidden; }
+/* In product/project cards + heritage swatches the Stone is the direct child:
+   pin it to the (aspect-ratio-sized) wrapper so the photo fills the tile. */
+.card-media > .stone,
+.type-card .swatch > .stone { position: absolute; inset: 0; }
+
+/* Home: the fixed WebGL stage (z-index:0) must not paint over the footer. */
+.footer { position: relative; z-index: 2; }
