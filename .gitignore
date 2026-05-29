@@ -37,3 +37,7 @@ coverage/
 # Misc
 *.log
 .vercel
+
+# build artifacts / scratch
+tsconfig.tsbuildinfo
+_*.txt
