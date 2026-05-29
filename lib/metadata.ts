@@ -1,22 +1,34 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/config";
+import { localizeHref, ogLocale } from "@/lib/locale";
+import type { Lang } from "@/lib/dict";
 
 type PageMetadata = {
   title?: string;
   description?: string;
+  /** Bare (unlocalized) path, e.g. "/products". Omit for home. */
   path?: string;
+  /** Active locale; defaults to English. */
+  lang?: Lang;
 };
 
-export function generatePageMetadata({ title, description, path }: PageMetadata): Metadata {
-  const fullTitle = title 
-    ? `${title} | ${siteConfig.name}` 
+export function generatePageMetadata({ title, description, path, lang = "en" }: PageMetadata): Metadata {
+  const fullTitle = title
+    ? `${title} | ${siteConfig.name}`
     : `${siteConfig.name} - Premium Marble Exporter Since 1985`;
-  
+
   const metaDesc = description || siteConfig.description;
-  const canonicalUrl = path ? `${siteConfig.url}${path}` : siteConfig.url;
+  const bare = path || "/";
+
+  const canonicalUrl = `${siteConfig.url}${localizeHref(lang, bare)}`;
+  // hreflang map — both language versions + x-default pointing at English.
+  const languages: Record<string, string> = {
+    en: `${siteConfig.url}${localizeHref("en", bare)}`,
+    ar: `${siteConfig.url}${localizeHref("ar", bare)}`,
+    "x-default": `${siteConfig.url}${localizeHref("en", bare)}`,
+  };
 
   // Shared OG image descriptor — kept DRY across openGraph + twitter.
-  // Resolved relative to metadataBase; the app/opengraph-image route also auto-wires this.
   const ogImages = [{ url: "/opengraph-image", width: 1200, height: 630, alt: siteConfig.name }];
 
   return {
@@ -25,7 +37,7 @@ export function generatePageMetadata({ title, description, path }: PageMetadata)
     keywords: [
       "Makrana marble",
       "marble exporter",
-      "granite supplier", 
+      "granite supplier",
       "marble handicrafts",
       "Islamic calligraphy",
       title ? title.toLowerCase() : "",
@@ -36,8 +48,8 @@ export function generatePageMetadata({ title, description, path }: PageMetadata)
       description: metaDesc,
       url: canonicalUrl,
       siteName: siteConfig.name,
-      locale: "en_IN",
-      alternateLocale: ["ar_IN"],
+      locale: ogLocale(lang),
+      alternateLocale: [ogLocale(lang === "ar" ? "en" : "ar")],
       type: "website",
       images: ogImages,
     },
@@ -49,6 +61,7 @@ export function generatePageMetadata({ title, description, path }: PageMetadata)
     },
     alternates: {
       canonical: canonicalUrl,
+      languages,
     },
     robots: {
       index: true,

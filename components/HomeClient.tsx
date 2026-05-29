@@ -79,7 +79,7 @@ function CategoryGallery({ catKey, gallery, index }: { catKey: string; gallery: 
 }
 
 export function HomeClient() {
-  const { t } = useI18n();
+  const { t, lhref } = useI18n();
 
   return (
     <>
@@ -98,7 +98,7 @@ export function HomeClient() {
               <Reveal delay={1}>
                 <div className="divider" />
                 <p className="lead">{t("home.introBody")}</p>
-                <Link className="link-arrow" style={{ marginTop: 26 }} href="/about">
+                <Link className="link-arrow" style={{ marginTop: 26 }} href={lhref("/about")}>
                   <span>{t("nav.about")}</span> →
                 </Link>
               </Reveal>
@@ -121,7 +121,7 @@ export function HomeClient() {
               ))}
             </div>
             <div className="center" style={{ marginTop: 64 }}>
-              <Link className="btn btn-ghost" href="/projects"><span>{t("home.viewAll")}</span> →</Link>
+              <Link className="btn btn-ghost" href={lhref("/projects")}><span>{t("home.viewAll")}</span> →</Link>
             </div>
           </div>
         </section>
@@ -134,7 +134,7 @@ export function HomeClient() {
             </Reveal>
             <Reveal delay={1}>
               <p className="lead">{t("home.ctaBody")}</p>
-              <Link className="btn btn-primary" style={{ marginTop: 28 }} href="/contact">
+              <Link className="btn btn-primary" style={{ marginTop: 28 }} href={lhref("/contact")}>
                 <span>{t("home.ctaBtn")}</span> →
               </Link>
             </Reveal>
