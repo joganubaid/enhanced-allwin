@@ -7,7 +7,7 @@ import { Reveal } from "./Reveal";
 import { CheckIcon } from "./icons";
 
 export function AboutClient() {
-  const { t } = useI18n();
+  const { t, lhref } = useI18n();
 
   return (
     <>
@@ -120,7 +120,7 @@ export function AboutClient() {
             <p className="eyebrow">{t("makrana.eyebrow")}</p>
             <h2 className="display" style={{ fontSize: "clamp(34px,5vw,62px)", margin: "18px 0 24px" }}>{t("makrana.title")}</h2>
             <p className="lead">{t("makrana.subtitle")}</p>
-            <Link className="link-arrow" style={{ marginTop: 28, color: "var(--brass-lite)" }} href="/heritage"><span>{t("nav.heritage")}</span> →</Link>
+            <Link className="link-arrow" style={{ marginTop: 28, color: "var(--brass-lite)" }} href={lhref("/heritage")}><span>{t("nav.heritage")}</span> →</Link>
           </Reveal>
           <Reveal className="ht-media" delay={1}><Stone label="White marble heritage work" src="/assets/handicraft-mausoleum.jpg" sizes="(max-width: 880px) 100vw, 40vw" /></Reveal>
         </div>

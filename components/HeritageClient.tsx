@@ -8,7 +8,7 @@ import { Reveal } from "./Reveal";
 import { Counter } from "./Counter";
 
 export function HeritageClient() {
-  const { t } = useI18n();
+  const { t, lhref } = useI18n();
   const ranges = Array.from({ length: 14 }, (_, i) => i + 1);
   const types = Array.from({ length: 8 }, (_, i) => i + 1);
 
@@ -119,7 +119,7 @@ export function HeritageClient() {
         <div className="wrap" style={{ maxWidth: 760, marginInline: "auto" }}>
           <p className="eyebrow center">{t("makrana.title")}</p>
           <h2 className="display" style={{ fontSize: "clamp(32px,5vw,60px)", marginTop: 18 }}>{t("home.ctaTitle")}</h2>
-          <Link className="btn btn-primary" style={{ marginTop: 28 }} href="/contact"><span>{t("home.ctaBtn")}</span> →</Link>
+          <Link className="btn btn-primary" style={{ marginTop: 28 }} href={lhref("/contact")}><span>{t("home.ctaBtn")}</span> →</Link>
         </div>
       </section>
     </>

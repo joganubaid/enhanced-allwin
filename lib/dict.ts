@@ -22,7 +22,7 @@ export const I18N: Record<Lang, Record<string, string>> = {
     "home.galleryEyebrow": "Selected Work",
     "home.galleryTitle": "Where stone becomes architecture",
     "home.gallerySub": "A living portfolio across the disciplines we are known for — from monumental fountains to hand-inlaid floors.",
-    "home.seeMore": "See More", "home.shown": "shown", "home.viewAll": "View full portfolio",
+    "home.seeMore": "See More", "home.seeLess": "See Less", "home.shown": "shown", "home.viewAll": "View full portfolio",
     "home.ctaEyebrow": "Let's build something timeless",
     "home.ctaTitle": "Bring your vision to our quarry.",
     "home.ctaBody": "Tell us about your project — residential, commercial, religious or heritage — and our team will guide you from stone selection to final polish.",

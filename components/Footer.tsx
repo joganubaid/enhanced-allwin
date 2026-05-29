@@ -14,7 +14,7 @@ const LINKS = [
 ];
 
 export function Footer() {
-  const { t } = useI18n();
+  const { t, lhref } = useI18n();
   const year = new Date().getFullYear();
 
   return (
@@ -29,7 +29,7 @@ export function Footer() {
             <h4>{t("footer.quickLinks")}</h4>
             <div className="footer-links">
               {LINKS.map((l) => (
-                <Link key={l.href} href={l.href}>{t(l.key)}</Link>
+                <Link key={l.href} href={lhref(l.href)}>{t(l.key)}</Link>
               ))}
             </div>
           </div>

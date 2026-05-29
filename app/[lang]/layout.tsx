@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { cookies } from "next/headers";
-import "./globals.css";
-import "./pages.css";
+import { notFound } from "next/navigation";
+import "../globals.css";
+import "../pages.css";
 import { siteConfig } from "@/lib/config";
 import { I18nProvider } from "@/lib/i18n";
+import { LOCALES, isLang, dirFor, ogLocale, localizeHref } from "@/lib/locale";
 import type { Lang } from "@/lib/dict";
 import { LightboxProvider } from "@/components/Lightbox";
 import { Navbar } from "@/components/Navbar";
@@ -11,6 +12,11 @@ import { Footer } from "@/components/Footer";
 import { FloatingButtons } from "@/components/FloatingButtons";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+/** Pre-render both languages at build time. */
+export function generateStaticParams() {
+  return LOCALES.map((lang) => ({ lang }));
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -22,35 +28,50 @@ export const viewport: Viewport = {
   ],
 };
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: "Allwin Marbles — Premium Makrana Marble, Granite & Handicrafts Since 1985",
-    template: "%s — Allwin Marbles",
-  },
-  description: siteConfig.description,
-  keywords: [
-    "Makrana marble", "marble exporter", "granite supplier", "marble handicrafts",
-    "Islamic calligraphy", "Makrana white marble", "stone carving",
-  ],
-  authors: [{ name: siteConfig.name }],
-  openGraph: {
-    title: "Allwin Marbles — Premium Marble Exporter Since 1985",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang: raw } = await params;
+  const lang: Lang = isLang(raw) ? raw : "en";
+  return {
+    metadataBase: new URL(siteConfig.url),
+    title: {
+      default: "Allwin Marbles — Premium Makrana Marble, Granite & Handicrafts Since 1985",
+      template: "%s — Allwin Marbles",
+    },
     description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    locale: "en_IN",
-    alternateLocale: ["ar_IN"],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Allwin Marbles — Premium Marble Exporter Since 1985",
-    description: siteConfig.description,
-  },
-  robots: { index: true, follow: true },
-  alternates: { canonical: siteConfig.url },
-};
+    keywords: [
+      "Makrana marble", "marble exporter", "granite supplier", "marble handicrafts",
+      "Islamic calligraphy", "Makrana white marble", "stone carving",
+    ],
+    authors: [{ name: siteConfig.name }],
+    openGraph: {
+      title: "Allwin Marbles — Premium Marble Exporter Since 1985",
+      description: siteConfig.description,
+      url: `${siteConfig.url}${localizeHref(lang, "/")}`,
+      siteName: siteConfig.name,
+      locale: ogLocale(lang),
+      alternateLocale: [ogLocale(lang === "ar" ? "en" : "ar")],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Allwin Marbles — Premium Marble Exporter Since 1985",
+      description: siteConfig.description,
+    },
+    robots: { index: true, follow: true },
+    alternates: {
+      canonical: `${siteConfig.url}${localizeHref(lang, "/")}`,
+      languages: {
+        en: siteConfig.url + "/",
+        ar: siteConfig.url + "/ar",
+        "x-default": siteConfig.url + "/",
+      },
+    },
+  };
+}
 
 const [makranaLat, makranaLng] = siteConfig.coordinates.makrana.split(",").map((c) => c.trim());
 const [keralaLat, keralaLng] = siteConfig.coordinates.kerala.split(",").map((c) => c.trim());
@@ -70,11 +91,7 @@ const jsonLd = {
     postalCode: "341505",
     addressCountry: "IN",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: makranaLat,
-    longitude: makranaLng,
-  },
+  geo: { "@type": "GeoCoordinates", latitude: makranaLat, longitude: makranaLng },
   telephone: siteConfig.phone,
   email: siteConfig.email,
   url: siteConfig.url,
@@ -118,17 +135,23 @@ const jsonLd = {
   ],
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
-  const cookieLocale = cookieStore.get("locale")?.value;
-  const initialLang: Lang = cookieLocale === "ar" ? "ar" : "en";
-  const dir = initialLang === "ar" ? "rtl" : "ltr";
+export default async function LangLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang: raw } = await params;
+  if (!isLang(raw)) notFound();
+  const lang: Lang = raw;
+  const dir = dirFor(lang);
 
   return (
-    <html lang={initialLang} dir={dir} suppressHydrationWarning>
+    <html lang={lang} dir={dir} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <a href="#main" className="skip-link">Skip to content</a>
-        <I18nProvider initialLang={initialLang}>
+        <I18nProvider lang={lang}>
           <LightboxProvider>
             <Navbar />
             <div id="main">{children}</div>

@@ -1,58 +1,24 @@
 "use client";
 
-import {
-  createContext, useContext, useState, useEffect, useCallback, useMemo, type ReactNode,
-} from "react";
+import { createContext, useContext, useCallback, useMemo, type ReactNode } from "react";
 import { I18N, type Lang } from "./dict";
+import { localizeHref } from "./locale";
 
 interface I18nCtx {
   lang: Lang;
-  setLang: (l: Lang) => void;
   t: (key: string) => string;
+  /** Localize an internal path for the active locale (EN root, AR /ar). */
+  lhref: (href: string) => string;
 }
 
 const I18nContext = createContext<I18nCtx | null>(null);
-const RTL: Lang[] = ["ar"];
-const STORAGE_KEY = "allwin-lang";
 
-function getInitial(): Lang {
-  if (typeof window === "undefined") return "en";
-  try {
-    const s = localStorage.getItem(STORAGE_KEY);
-    if (s === "en" || s === "ar") return s;
-  } catch {}
-  return "en";
-}
-
-function applyDir(l: Lang) {
-  if (typeof document === "undefined") return;
-  document.documentElement.lang = l;
-  document.documentElement.dir = RTL.includes(l) ? "rtl" : "ltr";
-}
-
-export function I18nProvider({
-  children,
-  initialLang,
-}: {
-  children: ReactNode;
-  initialLang?: Lang;
-}) {
-  const [lang, setLangState] = useState<Lang>(initialLang ?? "en");
-
-  // Apply the persisted locale after mount (keeps SSR output = "en", no mismatch).
-  useEffect(() => {
-    const l = getInitial();
-    setLangState(l);
-    applyDir(l);
-  }, []);
-
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l);
-    try { localStorage.setItem(STORAGE_KEY, l); } catch {}
-    try { document.cookie = "locale=" + l + "; path=/; max-age=31536000"; } catch {}
-    applyDir(l);
-  }, []);
-
+/** Route-driven i18n provider. The active language comes from the URL (the
+    [lang] route segment), seeded server-side — so the very first paint is in
+    the correct language and direction (no English→Arabic flash) and Arabic
+    pages are independently server-rendered & crawlable. Switching language is
+    a navigation (see Navbar), not client state. */
+export function I18nProvider({ lang, children }: { lang: Lang; children: ReactNode }) {
   const t = useCallback(
     (key: string) => {
       const d = I18N[lang] || I18N.en;
@@ -60,8 +26,8 @@ export function I18nProvider({
     },
     [lang]
   );
-
-  const value = useMemo(() => ({ lang, setLang, t }), [lang, setLang, t]);
+  const lhref = useCallback((href: string) => localizeHref(lang, href), [lang]);
+  const value = useMemo(() => ({ lang, t, lhref }), [lang, t, lhref]);
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 
