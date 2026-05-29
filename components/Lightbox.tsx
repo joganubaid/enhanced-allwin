@@ -94,7 +94,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
         <button className="lb-nav lb-prev" aria-label="Previous" onClick={() => go(-1)}><PrevIcon /></button>
         <button className="lb-nav lb-next" aria-label="Next" onClick={() => go(1)}><NextIcon /></button>
         <div className="lightbox-inner">
-          {cur && <Stone label={cur.label} material={cur.material} pal={cur.pal} src={cur.src} sizes="min(70vw, 760px)" />}
+          {cur && <Stone key={cur.src ?? idx} label={cur.label} material={cur.material} pal={cur.pal} src={cur.src} sizes="min(70vw, 760px)" priority />}
           <p className="lightbox-cap">{cur?.label}</p>
         </div>
       </div>
