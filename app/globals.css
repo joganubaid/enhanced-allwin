@@ -309,13 +309,19 @@ ul { list-style: none; }
 .footer h4 { font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass-lite); margin-bottom: 22px; }
 .footer-brand .display { font-size: 34px; margin-bottom: 18px; }
 .footer p, .footer a { color: var(--taupe-lite); font-size: 15px; }
-.footer-links { display: flex; flex-direction: column; gap: 13px; }
-.footer-links a { transition: color .3s, padding .3s; }
+.footer-links { display: flex; flex-direction: column; gap: 4px; }
+/* full-row hit target: block-level link with its own padding (not just the text). */
+.footer-links a { display: block; width: fit-content; padding: 6px 0; transition: color .3s, padding .3s; }
 .footer-links a:hover { color: var(--cream); padding-inline-start: 6px; }
 .footer-contact { display: flex; flex-direction: column; gap: 16px; }
 .footer-contact a { display: flex; gap: 12px; align-items: flex-start; transition: color .3s; }
 .footer-contact a:hover { color: var(--cream); }
 .footer-contact svg { width: 17px; height: 17px; flex: none; margin-top: 3px; color: var(--brass-lite); }
+/* phone row holds two separate tel: links side by side */
+.footer-phone { display: flex; gap: 12px; align-items: flex-start; }
+.footer-phone svg { width: 17px; height: 17px; flex: none; margin-top: 3px; color: var(--brass-lite); }
+.footer-phone a { transition: color .3s; }
+.footer-phone a:hover { color: var(--cream); }
 .footer-bottom {
   margin-top: clamp(48px, 7vw, 80px); border-top: 1px solid var(--line-dark);
   padding-block: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;

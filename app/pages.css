@@ -223,7 +223,7 @@
 .info-row svg { width: 20px; height: 20px; color: var(--brass); flex: none; margin-top: 3px; }
 .info-row .k { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--taupe); }
 .info-row .v { font-size: 15.5px; margin-top: 3px; }
-.info-row a.v:hover { color: var(--brass-deep); }
+.info-row a.v:hover, .info-row .v a:hover { color: var(--brass-deep); }
 .wa-card { display: flex; align-items: center; gap: 16px; padding: 22px 26px; border-radius: 3px; background: #1FA855; color: #fff; margin-top: 18px; transition: transform .3s; }
 .wa-card:hover { transform: translateY(-3px); }
 .wa-card svg { width: 30px; height: 30px; flex: none; }

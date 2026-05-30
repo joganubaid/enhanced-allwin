@@ -168,7 +168,11 @@ export function ContactForm() {
                 <PhoneIcon />
                 <div>
                   <div className="k">{t("contact.call")}</div>
-                  <a className="v" href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone} · {siteConfig.phoneAlt}</a>
+                  <div className="v">
+                    <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
+                    {" · "}
+                    <a href={`tel:${siteConfig.phoneAlt.replace(/\s/g, "")}`}>{siteConfig.phoneAlt}</a>
+                  </div>
                 </div>
               </div>
               <div className="info-row">

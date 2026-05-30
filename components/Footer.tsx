@@ -42,9 +42,14 @@ export function Footer() {
               <a href={siteConfig.social.mapsKerala} target="_blank" rel="noopener noreferrer">
                 <PinIcon /><span>{t("footer.keralaLocation")}</span>
               </a>
-              <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>
-                <PhoneIcon /><span>{siteConfig.phone} · {siteConfig.phoneAlt}</span>
-              </a>
+              <div className="footer-phone">
+                <PhoneIcon />
+                <span>
+                  <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
+                  {" · "}
+                  <a href={`tel:${siteConfig.phoneAlt.replace(/\s/g, "")}`}>{siteConfig.phoneAlt}</a>
+                </span>
+              </div>
               <a href={`mailto:${siteConfig.email}`}>
                 <MailIcon /><span>{siteConfig.email}</span>
               </a>
