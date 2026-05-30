@@ -51,10 +51,13 @@ export function Navbar() {
   const enHref = localizeHref("en", barePath);
   const arHref = localizeHref("ar", barePath);
 
+  // Plain <a> (full navigation), not <Link>: switching locale must re-render the
+  // root <html lang/dir> on the server. A client-side soft nav across the middleware
+  // rewrite (/ → /en) leaves lang/dir/content stale, so the toggle appears to do nothing.
   const langBtns = (
     <div className="lang-toggle">
-      <Link href={enHref} className={lang === "en" ? "active" : ""} hrefLang="en" aria-label="English" aria-current={lang === "en" ? "true" : undefined}>EN</Link>
-      <Link href={arHref} className={lang === "ar" ? "active" : ""} hrefLang="ar" aria-label="العربية" aria-current={lang === "ar" ? "true" : undefined}>ع</Link>
+      <a href={enHref} className={lang === "en" ? "active" : ""} hrefLang="en" aria-label="English" aria-current={lang === "en" ? "true" : undefined}>EN</a>
+      <a href={arHref} className={lang === "ar" ? "active" : ""} hrefLang="ar" aria-label="العربية" aria-current={lang === "ar" ? "true" : undefined}>ع</a>
     </div>
   );
 
@@ -102,8 +105,8 @@ export function Navbar() {
         ))}
         <div className="drawer-foot">
           <div className="lang-toggle" style={{ alignSelf: "flex-start" }}>
-            <Link href={enHref} className={lang === "en" ? "active" : ""} hrefLang="en" aria-label="English" aria-current={lang === "en" ? "true" : undefined}>EN</Link>
-            <Link href={arHref} className={lang === "ar" ? "active" : ""} hrefLang="ar" aria-label="العربية" aria-current={lang === "ar" ? "true" : undefined}>ع</Link>
+            <a href={enHref} className={lang === "en" ? "active" : ""} hrefLang="en" aria-label="English" aria-current={lang === "en" ? "true" : undefined}>EN</a>
+            <a href={arHref} className={lang === "ar" ? "active" : ""} hrefLang="ar" aria-label="العربية" aria-current={lang === "ar" ? "true" : undefined}>ع</a>
           </div>
           <Link className="btn btn-primary" href={lhref("/contact")}>{t("nav.callNow")}</Link>
         </div>
