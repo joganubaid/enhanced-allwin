@@ -36,13 +36,13 @@ export function Footer() {
           <div>
             <h4>{t("footer.contact")}</h4>
             <div className="footer-contact">
-              <a href={siteConfig.social.mapsMakrana} target="_blank" rel="noopener noreferrer">
-                <PinIcon /><span>{t("footer.makranaLocation")}</span>
-              </a>
-              <a href={siteConfig.social.mapsKerala} target="_blank" rel="noopener noreferrer">
-                <PinIcon /><span>{t("footer.keralaLocation")}</span>
-              </a>
-              <div className="footer-phone">
+              <div className="fc-row">
+                <PinIcon /><a href={siteConfig.social.mapsMakrana} target="_blank" rel="noopener noreferrer">{t("footer.makranaLocation")}</a>
+              </div>
+              <div className="fc-row">
+                <PinIcon /><a href={siteConfig.social.mapsKerala} target="_blank" rel="noopener noreferrer">{t("footer.keralaLocation")}</a>
+              </div>
+              <div className="fc-row">
                 <PhoneIcon />
                 <span>
                   <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
@@ -50,9 +50,9 @@ export function Footer() {
                   <a href={`tel:${siteConfig.phoneAlt.replace(/\s/g, "")}`}>{siteConfig.phoneAlt}</a>
                 </span>
               </div>
-              <a href={`mailto:${siteConfig.email}`}>
-                <MailIcon /><span>{siteConfig.email}</span>
-              </a>
+              <div className="fc-row">
+                <MailIcon /><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              </div>
             </div>
           </div>
         </div>
