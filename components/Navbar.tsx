@@ -51,13 +51,14 @@ export function Navbar() {
   const enHref = localizeHref("en", barePath);
   const arHref = localizeHref("ar", barePath);
 
-  // Plain <a> (full navigation), not <Link>: switching locale must re-render the
-  // root <html lang/dir> on the server. A client-side soft nav across the middleware
-  // rewrite (/ → /en) leaves lang/dir/content stale, so the toggle appears to do nothing.
+  // Single, unambiguous switch: always links to the OTHER language (no "click the
+  // one you're already on" confusion). Plain <a> = full navigation so the server
+  // re-renders the root <html lang/dir> for the new locale.
+  const otherHref = lang === "en" ? arHref : enHref;
+  const otherLabel = lang === "en" ? "العربية" : "English";
   const langBtns = (
     <div className="lang-toggle">
-      <a href={enHref} className={lang === "en" ? "active" : ""} hrefLang="en" aria-label="English" aria-current={lang === "en" ? "true" : undefined}>EN</a>
-      <a href={arHref} className={lang === "ar" ? "active" : ""} hrefLang="ar" aria-label="العربية" aria-current={lang === "ar" ? "true" : undefined}>ع</a>
+      <a href={otherHref} hrefLang={lang === "en" ? "ar" : "en"} aria-label={`Switch to ${otherLabel}`}>{otherLabel}</a>
     </div>
   );
 
@@ -105,8 +106,7 @@ export function Navbar() {
         ))}
         <div className="drawer-foot">
           <div className="lang-toggle" style={{ alignSelf: "flex-start" }}>
-            <a href={enHref} className={lang === "en" ? "active" : ""} hrefLang="en" aria-label="English" aria-current={lang === "en" ? "true" : undefined}>EN</a>
-            <a href={arHref} className={lang === "ar" ? "active" : ""} hrefLang="ar" aria-label="العربية" aria-current={lang === "ar" ? "true" : undefined}>ع</a>
+            <a href={otherHref} hrefLang={lang === "en" ? "ar" : "en"} aria-label={`Switch to ${otherLabel}`}>{otherLabel}</a>
           </div>
           <Link className="btn btn-primary" href={lhref("/contact")}>{t("nav.callNow")}</Link>
         </div>
